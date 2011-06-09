@@ -1,4 +1,3 @@
-require 'find'
 require 'fileutils'
 module Pairtree
   class Root
@@ -19,15 +18,12 @@ module Pairtree
       return [] unless pairtree_root? @root
 
       Dir.chdir(@root) do
-        Find.find(*Dir.entries('.').reject { |x| x =~ /^\./ }) do |path|
-          if File.directory? path
-            Find.prune if File.basename(path).length > @shorty_length
-  	        objects << path if Dir.entries(path).any? { |f| f.length > @shorty_length or File.file? File.join(path, f) }
-  	        next
-          end
-  	    end
+        possibles = Dir['**/?'] + Dir['**/??']
+        possibles.each { |path|
+          contents = Dir.entries(path).reject { |x| x =~ /^\./ }
+          objects << path unless contents.all? { |f| f.length <= @shorty_length and File.directory?(File.join(path, f)) }
+        }
       end
-
       objects.map { |x| @prefix + Pairtree::Path.path_to_id(x) }
     end
 

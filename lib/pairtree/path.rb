@@ -29,7 +29,7 @@ module Pairtree
 
     def self.path_to_id ppath
       parts = ppath.split(File::SEPARATOR)
-      parts.pop if @@leaf_proc
+      parts.pop if @@leaf_proc and parts.last.length > Root::SHORTY_LENGTH
       Pairtree::Identifier.decode(parts.join)
     end
     
