@@ -1,8 +1,8 @@
 module Pairtree
   class Path
-    @@leaf_proc = lambda { |id| Pairtree::Identifier.encode(id) }
+    @@leaf_proc = lambda { |id| id }
     
-    def self.leaf_proc value = nil, &block
+    def self.set_leaf value = nil, &block
       if value.nil?
         @@leaf_proc = block
       else
@@ -16,7 +16,7 @@ module Pairtree
     
     def self.leaf id
       if @@leaf_proc
-        @@leaf_proc.call(id)
+        Pairtree::Identifier.encode(@@leaf_proc.call(id))
       else
         ''
       end

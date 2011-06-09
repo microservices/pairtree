@@ -50,13 +50,11 @@ module Pairtree
     end
     
     def purge! id
-      if exists?
+      if exists?(id)
         Pairtree::Path.remove!(path_for(id))
       end
-      not exists?
+      not exists?(id)
     end
-
-    private
 
     def pairtree_root
       Dir.new @root
