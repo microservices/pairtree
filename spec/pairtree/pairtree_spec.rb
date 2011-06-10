@@ -22,7 +22,7 @@ describe "Pairtree" do
       pt.prefix.should == prefix
       File.read(File.join(@base_path, 'pairtree_prefix')).should == prefix
       pt.root.should == File.join(@base_path, 'pairtree_root')
-      pt.pairtree_root.class.should == Dir
+      pt.pairtree_version.should == Pairtree::SPEC_VERSION
     end
     
   end
@@ -52,6 +52,16 @@ describe "Pairtree" do
     
     it "should raise an error if the given prefix does not match the saved prefix" do
       lambda { Pairtree.at(@base_path, :prefix => 'wrong-prefix:') }.should raise_error(Pairtree::IdentifierError)
+    end
+    
+    it "should not complain if the given version matches the saved version" do
+      Pairtree.at(@base_path, :version => Pairtree::SPEC_VERSION).pairtree_version.should == Pairtree::SPEC_VERSION
+      Pairtree.at(@base_path, :version => Pairtree::SPEC_VERSION, :create => true).pairtree_version.should == Pairtree::SPEC_VERSION
+    end
+
+    it "should raise an error if the given version does not match the saved version" do
+      lambda { Pairtree.at(@base_path, :version => 0.2) }.should raise_error(Pairtree::VersionMismatch)
+      lambda { Pairtree.at(@base_path, :version => 0.2, :create => true) }.should raise_error(Pairtree::VersionMismatch)
     end
     
   end
