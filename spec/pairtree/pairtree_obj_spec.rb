@@ -8,8 +8,7 @@ describe "Pairtree::Obj" do
     Dir.chdir(File.join(File.dirname(__FILE__), "../test_data")) do
       FileUtils.cp_r('fixtures/pairtree_root_spec', './working')
     end
-    @pairtree = Pairtree::Client.new(@base_path)
-    @root = @pairtree.root
+    @root = Pairtree.at(@base_path)
     @obj = @root.get('pfx:abc123def')
   end
   

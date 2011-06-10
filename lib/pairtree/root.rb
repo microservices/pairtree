@@ -3,7 +3,8 @@ module Pairtree
   class Root
     SHORTY_LENGTH = 2
 
-    attr_reader :root
+    attr_reader :root, :prefix
+    
     def initialize root, args = {}
       @root = root
       
@@ -27,9 +28,13 @@ module Pairtree
       objects.map { |x| @prefix + Pairtree::Path.path_to_id(x) }
     end
 
+    def path
+      File.dirname(root)
+    end
+    
     def path_for id
       unless id.start_with? @prefix
-        raise IdentifierException, "Identifier must start with #{@prefix}"
+        raise IdentifierError, "Identifier must start with #{@prefix}"
       end
       path_id = id[@prefix.length..-1]
       File.join(@root, Pairtree::Path.id_to_path(path_id))

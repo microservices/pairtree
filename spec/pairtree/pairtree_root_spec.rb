@@ -8,8 +8,7 @@ describe "Pairtree::Root" do
     Dir.chdir(File.join(File.dirname(__FILE__), "../test_data")) do
       FileUtils.cp_r('fixtures/pairtree_root_spec', './working')
     end
-    @pairtree = Pairtree::Client.new(@base_path)
-    @root = @pairtree.root
+    @root = Pairtree.at(@base_path)
   end
   
   after(:all) do
@@ -17,11 +16,13 @@ describe "Pairtree::Root" do
   end
   
   it "should have the correct prefix" do
-    @pairtree.prefix.should == 'pfx:'
+    @root.prefix.should == 'pfx:'
   end
   
   it "should be in the correct location" do
-    File.expand_path(@pairtree.root.pairtree_root.path).should == File.expand_path(File.join(@base_path, "pairtree_root"))
+    File.expand_path(@root.path).should == File.expand_path(@base_path)
+    File.expand_path(@root.pairtree_root.path).should == File.expand_path(File.join(@base_path, "pairtree_root"))
+    File.expand_path(@root.root).should == File.expand_path(File.join(@base_path, "pairtree_root"))
   end
   
   it "should list identifiers" do
@@ -34,7 +35,7 @@ describe "Pairtree::Root" do
   end
   
   it "should raise an exception if an invalid prefix is used" do
-    lambda { @root.exists?('xfp:abc123def') }.should raise_error(Pairtree::IdentifierException)
+    lambda { @root.exists?('xfp:abc123def') }.should raise_error(Pairtree::IdentifierError)
   end
   
   it "should get a ppath for a valid ID" do
