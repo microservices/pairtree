@@ -35,7 +35,8 @@ module Pairtree
     end
     
     def glob(string, flags = 0)
-      entries.select { |entry| File.fnmatch(string, entry, flags) }
+      result = Dir.glob(File.join(self.path, string), flags) - ['.','..']
+      result.collect { |f| f.sub(%r{^#{self.path}/},'') }
     end
     
     def [](string)
