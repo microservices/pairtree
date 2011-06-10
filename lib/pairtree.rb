@@ -12,6 +12,13 @@ module Pairtree
 
   SPEC_VERSION = 0.1
   
+  ##
+  # Instantiate a pairtree at a given path location
+  # @param [String] path The path in which the pairtree resides
+  # @param [Hash] args Pairtree options
+  # @option args [String] :prefix (nil) the identifier prefix used throughout the pairtree
+  # @option args [String] :version (Pairtree::SPEC_VERSION) the version of the pairtree spec that this tree conforms to
+  # @option args [Boolean] :create (false) if true, create the pairtree and its directory structure if it doesn't already exist
   def self.at path, args = {}
     args = { :prefix => nil, :version => nil, :create => false }.merge(args)
     args[:version] ||= SPEC_VERSION
