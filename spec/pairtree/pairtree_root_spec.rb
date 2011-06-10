@@ -21,7 +21,6 @@ describe "Pairtree::Root" do
   
   it "should be in the correct location" do
     File.expand_path(@root.path).should == File.expand_path(@base_path)
-    File.expand_path(@root.pairtree_root.path).should == File.expand_path(File.join(@base_path, "pairtree_root"))
     File.expand_path(@root.root).should == File.expand_path(File.join(@base_path, "pairtree_root"))
   end
   

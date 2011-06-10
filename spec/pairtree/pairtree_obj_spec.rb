@@ -40,9 +40,9 @@ describe "Pairtree::Obj" do
       @target = File.join(@base_path, 'pairtree_root/ab/c1/23/de/f/abc123def/content.xml')
     end
     
-    it "should open a file with #file" do
+    it "should open a file" do
       File.should_receive(:open).with(@target,'r')
-      @obj.file('content.xml','r')
+      @obj.open('content.xml','r')
     end
 
     it "should call delete" do
