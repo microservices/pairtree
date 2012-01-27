@@ -1,5 +1,6 @@
 Dir.glob('lib/tasks/*.rake').each { |r| import r }
 
+require 'bundler/gem_tasks'
 require 'rake'
 require 'rspec/core/rake_task'
 
