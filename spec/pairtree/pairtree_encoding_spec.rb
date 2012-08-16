@@ -1,4 +1,5 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+# encoding: utf-8
+require 'spec_helper'
 require 'pairtree'
 
 describe "Pairtree encoding" do
@@ -12,7 +13,7 @@ describe "Pairtree encoding" do
       path = Pairtree::Path.id_to_path(id)
       path.should == expected_path
     end
-    Pairtree::Identifier.decode(encoded).should == id
+    Pairtree::Identifier.decode(encoded).force_encoding("UTF-8").should == id
   end
   
   it "should handle a" do

@@ -5,6 +5,13 @@ require 'bundler/setup'
 require 'rspec'
 require 'rspec/autorun'
 
+if ENV['COVERAGE'] and RUBY_VERSION =~ /^1.9/
+  require 'simplecov'
+  SimpleCov.start
+end
+
+require 'pairtree'
+
 RSpec.configure do |config|
   
 end

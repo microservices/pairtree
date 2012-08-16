@@ -1,7 +1,7 @@
 module Pairtree
   class Identifier
-    ENCODE_REGEX = Regexp.compile("[\"*+,<=>?\\\\^|]|[^\x21-\x7e]", nil, 'u')
-    DECODE_REGEX = Regexp.compile("\\^(..)", nil, 'u')
+    ENCODE_REGEX = Regexp.compile("[\"*+,<=>?\\\\^|]|[^\x21-\x7e]", nil)
+    DECODE_REGEX = Regexp.compile("\\^(..)", nil)
 
     ##
     # Encode special characters within an identifier
@@ -21,7 +21,7 @@ module Pairtree
     # Convert a character to its pairtree hexidecimal representation
     # @param [Char] c The character to convert
     def self.char2hex c
-      c.unpack('H*')[0].scan(/../).map { |x| "^#{x}"}
+      c.unpack('H*')[0].scan(/../).map { |x| "^#{x}"}.join('')
     end
 
     ##
