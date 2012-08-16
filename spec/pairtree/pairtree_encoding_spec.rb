@@ -13,7 +13,13 @@ describe "Pairtree encoding" do
       path = Pairtree::Path.id_to_path(id)
       path.should == expected_path
     end
-    Pairtree::Identifier.decode(encoded).force_encoding("UTF-8").should == id
+    str = Pairtree::Identifier.decode(encoded)
+    
+    if str.respond_to? :force_encoding
+      str.force_encoding("UTF-8")
+    end
+    
+    str.should == id
   end
   
   it "should handle a" do
