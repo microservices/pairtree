@@ -1,27 +1,45 @@
-Dir.glob('lib/tasks/*.rake').each { |r| import r }
+require 'rubygems'
+require 'bundler'
+begin
+  Bundler.setup(:default, :development)
+rescue Bundler::BundlerError => e
+  $stderr.puts e.message
+  $stderr.puts "Run `bundle install` to install missing gems"
+  exit e.status_code
+end
 
-require 'bundler/gem_tasks'
+Bundler::GemHelper.install_tasks
+
 require 'rake'
+require 'rspec'
 require 'rspec/core/rake_task'
 
-begin
-  if RUBY_VERSION < "1.9"
-require 'rcov/rcovtask'
-desc "Generate code coverage"
-RSpec::Core::RakeTask.new(:rcov) do |t|
-  t.pattern = "./spec/**/*_spec.rb" # don't need this, it's default.
-  t.rcov = true
-  t.rcov_opts = ['--exclude', 'spec', '--exclude', 'gems']
-end
+desc 'Default: run specs.'
+task :default => :spec
+
+RSpec::Core::RakeTask.new do |t|
+  if ENV['COVERAGE'] and RUBY_VERSION =~ /^1.8/
+    t.rcov = true
+    t.rcov_opts = ['--exclude', 'spec', '--exclude', 'gems']
   end
-rescue
 end
 
-RSpec::Core::RakeTask.new(:spec)
+# Use yard to build docs
+begin
+  require 'yard'
+  require 'yard/rake/yardoc_task'
+  project_root = File.expand_path(File.dirname(__FILE__))
+  doc_destination = File.join(project_root, 'doc')
 
-task :clean do
-  puts 'Cleaning old coverage.data'
-  FileUtils.rm('coverage.data') if(File.exists? 'coverage.data')
+  YARD::Rake::YardocTask.new(:doc) do |yt|
+    yt.files   = Dir.glob(File.join(project_root, 'lib', '**', '*.rb')) + 
+                 [ File.join(project_root, 'README.md') ]
+    yt.options = ['--output-dir', doc_destination, '--readme', 'README.md']
+  end
+rescue LoadError
+  desc "Generate YARD Documentation"
+  task :doc do
+    abort "Please install the YARD gem to generate rdoc."
+  end
 end
 
-task :default => [:rcov, :doc]
