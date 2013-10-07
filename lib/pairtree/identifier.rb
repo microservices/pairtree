@@ -16,19 +16,23 @@ module Pairtree
     # @param [String] id The identifier
     def self.decode id
       input = id.tr('=+,', '/:.').bytes.to_a
-      output = []
+      intermediate = []
       while input.first
         if input.first == 94
           h = []
           input.shift
           h << input.shift
           h << input.shift
-          output << h.pack('c*').hex
+          intermediate << h.pack('c*').hex
         else
-          output << input.shift
+          intermediate << input.shift
         end
       end
-      output.pack('c*').force_encoding('UTF-8')
+      result = intermediate.pack('c*')
+      if result.respond_to? :force_encoding
+        result.force_encoding('UTF-8')
+      end
+      result
     end
 
     ##
