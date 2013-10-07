@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Pairtree
   class Identifier
     ENCODE_REGEX = Regexp.compile("[\"*+,<=>?\\\\^|]|[^\x21-\x7e]", nil)
@@ -14,7 +15,20 @@ module Pairtree
     # Decode special characters within an identifier
     # @param [String] id The identifier
     def self.decode id
-      id.tr('=+,', '/:.').gsub(DECODE_REGEX) { |h| hex2char(h) } 
+      input = id.tr('=+,', '/:.').bytes.to_a
+      output = []
+      while input.first
+        if input.first == 94
+          h = []
+          input.shift
+          h << input.shift
+          h << input.shift
+          output << h.pack('c*').hex
+        else
+          output << input.shift
+        end
+      end
+      output.pack('c*').force_encoding('UTF-8')
     end
 
     ##
