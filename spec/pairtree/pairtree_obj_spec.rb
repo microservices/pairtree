@@ -30,7 +30,7 @@ describe "Pairtree::Obj" do
   end
   
   it "should be enumerable" do
-    block_body = mock('block_body')
+    block_body = double('block_body')
     block_body.should_receive(:yielded).with('content.xml')
     @obj.each { |file| block_body.yielded(file) }
   end
