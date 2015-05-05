@@ -7,19 +7,19 @@ describe "Pairtree encoding" do
   def roundtrip(id, expected_encoded=nil, expected_path=nil)
     encoded = Pairtree::Identifier.encode(id)
     unless expected_encoded.nil?
-      encoded.should == expected_encoded
+      expect(encoded).to eql(expected_encoded)
     end
     unless expected_path.nil?
       path = Pairtree::Path.id_to_path(id)
-      path.should == expected_path
+      expect(path).to eql(expected_path)
     end
     str = Pairtree::Identifier.decode(encoded)
     
     if str.respond_to? :force_encoding
       str.force_encoding("UTF-8")
     end
-    
-    str.should == id
+
+    expect(str).to eql(id)
   end
   
   it "should handle a" do

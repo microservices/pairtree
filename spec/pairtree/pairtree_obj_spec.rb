@@ -17,21 +17,21 @@ describe "Pairtree::Obj" do
   end
   
   it "should read a file" do
-    @obj.read('content.xml').should == '<content/>'
+    expect(@obj.read('content.xml')).to eql('<content/>')
   end
 
   it "should have entries" do
-    @obj.entries.should == ['content.xml']
+    expect(@obj.entries).to eql(['content.xml'])
   end
   
   it "should glob" do
-    @obj['*.xml'].should == ['content.xml']
-    @obj['*.txt'].should == []
+    expect(@obj['*.xml']).to eql(['content.xml'])
+    expect(@obj['*.txt']).to eql([])
   end
   
   it "should be enumerable" do
     block_body = double('block_body')
-    block_body.should_receive(:yielded).with('content.xml')
+    expect(block_body).to receive(:yielded).with('content.xml')
     @obj.each { |file| block_body.yielded(file) }
   end
   
@@ -41,27 +41,27 @@ describe "Pairtree::Obj" do
     end
     
     it "should open a file" do
-      File.should_receive(:open).with(@target,'r')
+      expect(File).to receive(:open).with(@target,'r')
       @obj.open('content.xml','r')
     end
 
     it "should call delete" do
-      File.should_receive(:delete).with(@target)
+      expect(File).to receive(:delete).with(@target)
       @obj.delete('content.xml')
     end
 
     it "should call link" do
-      File.should_receive(:link).with(@target,@target + '.2')
+      expect(File).to receive(:link).with(@target,@target + '.2')
       @obj.link('content.xml','content.xml.2')
     end
 
     it "should call rename" do
-      File.should_receive(:rename).with(@target,@target + '.new')
+      expect(File).to receive(:rename).with(@target,@target + '.new')
       @obj.rename('content.xml','content.xml.new')
     end
 
     it "should call utime" do
-      File.should_receive(:utime).with(0,1,@target)
+      expect(File).to receive(:utime).with(0,1,@target)
       @obj.utime(0,1,'content.xml')
     end
   end

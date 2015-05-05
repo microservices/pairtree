@@ -16,48 +16,48 @@ describe "Pairtree::Root" do
   end
   
   it "should have the correct prefix" do
-    @root.prefix.should == 'pfx:'
+    expect(@root.prefix).to eql('pfx:')
   end
   
   it "should be in the correct location" do
-    File.expand_path(@root.path).should == File.expand_path(@base_path)
-    File.expand_path(@root.root).should == File.expand_path(File.join(@base_path, "pairtree_root"))
+    expect(File.expand_path(@root.path)).to eql(File.expand_path(@base_path))
+    expect(File.expand_path(@root.root)).to eql(File.expand_path(File.join(@base_path, "pairtree_root")))
   end
   
   it "should list identifiers" do
-    @root.list.should == ['pfx:abc123def']
+    expect(@root.list).to eql(['pfx:abc123def'])
   end
   
   it "should verify whether an identifier exists" do
-    @root.exists?('pfx:abc123def').should be_true
-    @root.exists?('pfx:abc123jkl').should be_false
+    expect(@root.exists?('pfx:abc123def')).to be true
+    expect(@root.exists?('pfx:abc123jkl')).to be false
   end
   
   it "should raise an exception if an invalid prefix is used" do
-    lambda { @root.exists?('xfp:abc123def') }.should raise_error(Pairtree::IdentifierError)
+    expect { @root.exists?('xfp:abc123def') }.to raise_error(Pairtree::IdentifierError)
   end
   
   it "should get a ppath for a valid ID" do
     obj = @root.get 'pfx:abc123def'
-    obj.class.should == Pairtree::Obj
-    File.expand_path(obj.path).should == File.expand_path(File.join(@base_path, "pairtree_root/ab/c1/23/de/f/abc123def/"))
+    expect(obj.class).to eql(Pairtree::Obj)
+    expect(File.expand_path(obj.path)).to eql(File.expand_path(File.join(@base_path, "pairtree_root/ab/c1/23/de/f/abc123def/")))
   end
   
   it "should raise an exception when attempting to get a ppath for an invalid ID" do
-    lambda { @root.get 'pfx:abc123jkl' }.should raise_error(Errno::ENOENT)
+    expect { @root.get 'pfx:abc123jkl' }.to raise_error(Errno::ENOENT)
   end
   
   it "should create a new ppath" do
     obj = @root.mk 'pfx:abc123jkl'
-    obj.class.should == Pairtree::Obj
-    File.expand_path(obj.path).should == File.expand_path(File.join(@base_path, "pairtree_root/ab/c1/23/jk/l/abc123jkl/"))
-    @root.exists?('pfx:abc123jkl').should be_true
+    expect(obj.class).to eql(Pairtree::Obj)
+    expect(File.expand_path(obj.path)).to eql(File.expand_path(File.join(@base_path, "pairtree_root/ab/c1/23/jk/l/abc123jkl/")))
+    expect(@root.exists?('pfx:abc123jkl')).to be true
   end
   
   it "should delete a ppath" do
-    @root.exists?('pfx:abc123jkl').should be_true
+    expect(@root.exists?('pfx:abc123jkl')).to be true
     @root.purge!('pfx:abc123jkl')
-    @root.exists?('pfx:abc123jkl').should be_false
+    expect(@root.exists?('pfx:abc123jkl')).to be false
   end
   
 end
