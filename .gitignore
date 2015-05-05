@@ -42,3 +42,5 @@ pkg
 #*.swp
 #
 Gemfile.lock
+
+.idea/
