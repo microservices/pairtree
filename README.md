@@ -1,6 +1,6 @@
 # pairtree
 
-Ruby implementation of the [Pairtree](https://confluence.ucop.edu/display/Curation/PairTree) microservice specification from the California Digital Library.
+Ruby implementation of the [Pairtree](https://wiki.ucop.edu/display/Curation/PairTree) specification from the California Digital Library.
 
 # Usage
 
@@ -29,9 +29,5 @@ Ruby implementation of the [Pairtree](https://confluence.ucop.edu/display/Curati
   # Delete a ppath and all its contents
   pairtree.purge!('pfx:abc123def')
 ```
-  
-##  Copyright
 
-Copyright (c) 2010 Chris Beer. See LICENSE.txt for
-further details.
 

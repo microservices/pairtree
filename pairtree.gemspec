@@ -1,14 +1,11 @@
 Gem::Specification.new do |s|
   s.name             = %q{pairtree}
   s.summary          = %q{Ruby Pairtree implementation}
-  s.version          = "0.1.0"
-  s.homepage         = %q{http://github.com/microservices/pairtree}
+  s.version          = "0.2.0"
+  s.homepage         = %q{http://github.com/mlibrary/pairtree}
   s.licenses         = ["Apache2"]
-  s.rubygems_version = %q{1.3.7}
-
-  s.authors          = ["Chris Beer"]
-  s.date             = %q{2010-12-23}
-  s.email            = %q{chris@cbeer.info}
+  s.authors          = ["Chris Beer, Bryan Hockey, Michael Slone"]
+  s.date             = %q{2015-05-05}
   s.files            = `git ls-files`.split("\n")
   s.test_files       = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.extra_rdoc_files = ["LICENSE.txt", "README.md"]
