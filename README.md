@@ -1,8 +1,29 @@
-# pairtree
+# (r)pairtree
 
 Ruby implementation of the [Pairtree](https://wiki.ucop.edu/display/Curation/PairTree) specification from the California Digital Library.
 
-# Usage
+## Description
+
+A fork of the seemingly-abandoned  [pairtree](https://github.com/microservices/pairtree).
+
+
+## Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'rpairtree'
+```
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install rpairtree
+
+## Usage
 
 ```ruby
   # Initiate a tree

@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
-  s.name             = %q{pairtree}
-  s.summary          = %q{Ruby Pairtree implementation}
+  s.name             = %q{rpairtree}
+  s.summary          = %q{Ruby Pairtree implementation, forked from pairtree which is abandoned.}
   s.version          = "0.2.0"
   s.homepage         = %q{http://github.com/mlibrary/pairtree}
   s.licenses         = ["Apache2"]
