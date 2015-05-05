@@ -1,9 +1,9 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 # Specify your gem's dependencies in test.gemspec
 gemspec
 
 
 gem 'rcov', :platform => :mri_18
-gem 'simplecov', :platform => :mri_19
-gem 'simplecov-rcov', :platform => :mri_19
+gem 'simplecov', :platforms => [:mri_19, :mri_20]
+gem 'simplecov-rcov', :platforms => [:mri_19, :mri_20]

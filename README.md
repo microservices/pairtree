@@ -1,6 +1,6 @@
 # pairtree
 
-Ruby implementation of the [Pairtree](https://confluence.ucop.edu/display/Curation/PairTree microservice specification from the California Digital Librar)
+Ruby implementation of the [Pairtree](https://confluence.ucop.edu/display/Curation/PairTree) microservice specification from the California Digital Library.
 
 # Usage
 

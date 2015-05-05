@@ -78,7 +78,7 @@ describe "Pairtree encoding" do
   end
   
   it "should roundtrip French" do
-    roundtrip('Années de Pèlerinage')
+    roundtrip('Années de Pèlerinage', 'Ann^c3^a9es^20de^20P^c3^a8lerinage', 'An/n^/c3/^a/9e/s^/20/de/^2/0P/^c/3^/a8/le/ri/na/ge/Ann^c3^a9es^20de^20P^c3^a8lerinage')
     roundtrip(%{
       Années de Pèlerinage (Years of Pilgrimage) (S.160, S.161,
       S.163) is a set of three suites by Franz Liszt for solo piano. Liszt's
